@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 import './src/database/databaseConnection.js'
 import habitacionRouter from './src/routes/habitacion.routes.js'
 import usuarioRouter from './src/routes/usuario.routes.js'
+ 
 
 const app = express();
 
@@ -22,5 +23,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 app.use(express.static(path.join(__dirname,'/public')))
 
-  app.use('/api',habitacionRouter)
+ app.use('/api',habitacionRouter)
+
  app.use('/api',usuarioRouter)
+ dev
