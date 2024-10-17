@@ -25,22 +25,29 @@ const habitacionSchema = new Schema({
     descripcion_breve:{
         type: String,
         required: true,
-        min: 20,
-        max: 300,
+        minLength: 20,
+        maxLength: 300,
     },
     descripcion_amplia:{
         type: String,
         required: true,
-        min: 30,
-        max: 1000,
+        minLength: 30,
+        maxLength: 1000,
     },
     tamanio:{
         type: Number,
         required: true,
+        min: 10,
+        max: 100,
     },
     imagen:{
         type: String,
         required: true,
+        validate: {
+            validator: (valor)=>{
+                return /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/.test(valor)
+            }
+        }
     },
     disponibilidad:{
         type: Boolean,
@@ -49,9 +56,23 @@ const habitacionSchema = new Schema({
     fechaEntrada:{
         type: Date,
         required: true,
+        validate: {
+            validator: function(value) {
+                return value > Date.now();
+            },
+            message: 'La fecha límite debe ser una fecha futura.',
+        },
     },
     fechaSalida:{
         type: Date,
         required: true,
+        validate: {
+            validator: function(value) {
+                return value > Date.now();
+            },
+            message: 'La fecha límite debe ser una fecha futura.',
+        },
     },
 })
+const Habitacion = mongoose.model('habitacion', habitacionSchema)
+export default Habitacion;
