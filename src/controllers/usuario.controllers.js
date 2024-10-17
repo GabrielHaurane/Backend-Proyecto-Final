@@ -78,3 +78,24 @@ export const editarUsuario = async (req, res) => {
     });
   }
 };
+
+export const login = async (req,res)=>{
+  try {
+    const {email,password} = req.body;
+    const usuarioExistente =  await Usuario.findOne({email});
+    if (!usuarioExistente) {
+     return  res.status(404).json({
+        mensaje: "Email o contraseña incorrectos",
+      })
+    }
+    res.status(200).json({
+      mensaje: "Email y contraseña correctos",
+      Bienvenido:  usuarioExistente.email
+
+    })
+  } catch (error) {
+    res.status(500).json({
+      mensaje:"Ocurrio un error, el usuario no se pudo loguear"
+    })
+  }
+}

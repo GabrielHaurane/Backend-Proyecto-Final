@@ -5,12 +5,11 @@ import {
   borrarUsuario,
   obtenerUsuario,
   listarUsuarios,
+  login,
 } from "../controllers/usuario.controllers.js";
 
 const usuarioRouter = Router();
-usuarioRouter.route("/usuarios")
-.post(crearUsuario)
-.get(listarUsuarios);
+usuarioRouter.route("/usuarios").post(crearUsuario).get(listarUsuarios);
 
 usuarioRouter
   .route("/usuarios/:id")
@@ -18,4 +17,6 @@ usuarioRouter
   .delete(borrarUsuario)
   .put(editarUsuario);
 
-  export default usuarioRouter;
+export default usuarioRouter;
+
+usuarioRouter.route("/usuarios/login").post(login);
