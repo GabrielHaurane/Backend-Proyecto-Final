@@ -4,8 +4,13 @@ import morgan from 'morgan'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import './src/database/databaseConnection.js'
+ habitaciones
+import habitacionRouter from './src/routes/habitacion.routes.js'
+// import usuarioRouter from './src/routes/usuario.routes.js'
+
  import habitacionRouter from './src/routes/habitacion.routes.js'
 import usuarioRouter from './src/routes/usuario.routes.js'
+ dev
 
 const app = express();
 
@@ -23,4 +28,8 @@ const __dirname = path.dirname(__filename)
 app.use(express.static(path.join(__dirname,'/public')))
 
  app.use('/api',habitacionRouter)
+ habitaciones
+//  app.use('/api',usuarioRouter)
+
  app.use('/api',usuarioRouter)
+ dev
