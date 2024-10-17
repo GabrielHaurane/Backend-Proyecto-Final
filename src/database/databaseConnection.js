@@ -1,4 +1,5 @@
-import mongoose, { mongo } from "mongoose";
+
+import mongoose from "mongoose";
 
 const mongodb = process.env.MONGODB
 mongoose.connect(mongodb)

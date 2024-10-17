@@ -4,7 +4,7 @@ import morgan from 'morgan'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import './src/database/databaseConnection.js'
-import habitacionRouter from './src/routes/habitacion.routes.js'
+ import habitacionRouter from './src/routes/habitacion.routes.js'
 import usuarioRouter from './src/routes/usuario.routes.js'
 
 const app = express();
