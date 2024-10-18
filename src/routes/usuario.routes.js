@@ -6,6 +6,7 @@ import {
   obtenerUsuario,
   listarUsuarios,
   login,
+  registrarUsuario,
 } from "../controllers/usuario.controllers.js";
 
 const usuarioRouter = Router();
@@ -20,3 +21,5 @@ usuarioRouter
 export default usuarioRouter;
 
 usuarioRouter.route("/usuarios/login").post(login);
+
+usuarioRouter.route("/usuarios/registro").post(registrarUsuario)
