@@ -7,7 +7,6 @@ import './src/database/databaseConnection.js'
 import habitacionRouter from './src/routes/habitacion.routes.js'
 import usuarioRouter from './src/routes/usuario.routes.js'
 
-
 const app = express();
 
 app.set('port', process.env.PORT || 4000)

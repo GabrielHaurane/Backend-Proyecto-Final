@@ -7,3 +7,4 @@ const connexion = mongoose.connection;
 connexion.once('open', ()=>{
     console.info('BD conectada')
 })
+
