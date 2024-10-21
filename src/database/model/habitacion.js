@@ -21,6 +21,8 @@ const habitacionSchema = new Schema({
     servicios:{
         type: String,
         required: true,
+        minLength:10,
+        maxLength: 500
     },
     descripcion_breve:{
         type: String,
