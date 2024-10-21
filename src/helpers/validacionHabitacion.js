@@ -44,10 +44,10 @@ const validacionHabitacion = [
     .notEmpty()
     .withMessage("Los servicios que incluye es un dato obligatorio")
     .isLength({
-      min: 50,
+      min: 10,
       max: 500,
     })
-    .withMessage("La cantidad de servicios debe ser entre 50 y 500 caracteres"),
+    .withMessage("La cantidad de servicios debe ser entre 10 y 500 caracteres"),
   check("descripcion_breve")
     .notEmpty()
     .withMessage("La descripcion breve es un dato obligatorio")
@@ -86,7 +86,7 @@ const validacionHabitacion = [
   check("disponibilidad")
     .notEmpty()
     .withMessage("La disponibilidad es un dato obligatorio")
-    .isIn(["si","no"])
+    .isIn(["true","false"])
     .withMessage("debe seleccionar una de las dos opciones para verificar su disponiblidad")
     .isBoolean()
     .withMessage("La disponibilidad debe ser un valor booleano."),
@@ -112,4 +112,6 @@ const validacionHabitacion = [
       }
       return true;
     }),
+    (req,res,next)=>resuldadoValidacion(req,res,next)
 ];
+export default validacionHabitacion;

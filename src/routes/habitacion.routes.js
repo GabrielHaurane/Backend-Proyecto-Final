@@ -6,15 +6,17 @@ import {
   listarHabitacion,
   obtenerHabitacion,
 } from "../controllers/habitacion.controllers.js";
+import validacionHabitacion from "../helpers/validacionHabitacion.js";
+import verificarJWT from "../helpers/verificaJWT.js";
 
 const habitacionRouter = Router()
 habitacionRouter
 .route('/habitacion')
-.post(crearHabitacion)
+.post([ validacionHabitacion],crearHabitacion)
 .get(listarHabitacion)
 habitacionRouter
 .route('/habitacion/:id')
 .get(obtenerHabitacion)
 .delete(borrarHabitacion)
-.put(editarHabitacion)
+.put([ validacionHabitacion],editarHabitacion)
 export default habitacionRouter
