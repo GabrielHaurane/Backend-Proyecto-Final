@@ -1,5 +1,5 @@
 import { check } from "express-validator";
-import resuldadoValidacion from "./resultadoValidacion.js";
+import resultadoValidacion from "./resultadoValidacion.js";
 const validacionUsuario = [
   check("email")
     .notEmpty()

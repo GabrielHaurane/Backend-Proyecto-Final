@@ -1,9 +1,13 @@
 import Usuario from "../database/model/usuario.js";
 import bcrypt from "bcrypt";
+import generarJwt from "../helpers/generaJWT.js";
 
 export const crearUsuario = async (req, res) => {
   try {
-    const usuarioNuevo = new Usuario(req.body);
+    const { email, password } = req.body;
+    const saltos = bcrypt.genSaltSync(10);
+    const hashearPassword = bcrypt.hashSync(password, saltos);
+    const usuarioNuevo = new Usuario({ email, password: hashearPassword });
     await usuarioNuevo.save();
     res.status(201).json({
       mensaje: "El usuario fue creado correctamente",
@@ -89,9 +93,21 @@ export const login = async (req, res) => {
         mensaje: "Email o contraseña incorrectos",
       });
     }
+    const passwordCorrecto = bcrypt.compareSync(
+      password,
+      usuarioExistente.password
+    );
+    if (!passwordCorrecto) {
+      return res.status(400).json({
+        mensaje: "Email o contraseña incorrectos",
+      });
+    }
+    const token = await generarJwt(usuarioExistente._id, email);
     res.status(200).json({
       mensaje: "Email y contraseña correctos",
       Bienvenido: usuarioExistente.email,
+      email,
+      token,
     });
   } catch (error) {
     res.status(500).json({
@@ -122,7 +138,7 @@ export const registrarUsuario = async (req, res) => {
     await usuarioNuevo.save();
     res.status(200).json({
       mensaje: "Usuario registrado con éxito",
-    })
+    });
   } catch (error) {
     res.status(500).json({
       mensaje: "Ocurrio un error, el usuario no se pudo registrar",
