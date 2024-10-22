@@ -11,7 +11,9 @@ import verificarJWT from "../helpers/verificaJWT.js";
 const habitacionRouter = Router()
 habitacionRouter
 .route('/habitacion')
-.post([ verificarJWT,validacionHabitacion],crearHabitacion)
+.post([validacionHabitacion],crearHabitacion)
+habitacionRouter
+.route('/catalogo')
 .get(listarHabitacion)
 habitacionRouter
 .route('/habitacion/:id')

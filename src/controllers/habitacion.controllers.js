@@ -54,13 +54,47 @@ export const editarHabitacion = async (req,res)=>{
 }
 export const listarHabitacion = async (req,res)=>{
     try {
-        const arrayHabitaciones = await Habitacion.find()
-        res.status(200).json(arrayHabitaciones)
+        // Obtener las fechas de la solicitud (GET params)
+        const { fechaEntrada, fechaSalida } = req.query;
+
+        // Validar que se hayan enviado las fechas
+        if (!fechaEntrada || !fechaSalida) {
+            return res.status(400).json({
+                mensaje: "Por favor, proporciona las fechas de entrada y salida para buscar habitaciones.",
+            });
+        }
+
+        // Convertir las fechas a objetos Date
+        const fechaEntradaDate = new Date(fechaEntrada);
+        const fechaSalidaDate = new Date(fechaSalida);
+
+        // Validar que las fechas son válidas
+        if (isNaN(fechaEntradaDate) || isNaN(fechaSalidaDate)) {
+            return res.status(400).json({
+                mensaje: "Las fechas proporcionadas son inválidas.",
+            });
+        }
+
+        // Buscar habitaciones disponibles entre las fechas proporcionadas
+        const arrayHabitaciones = await Habitacion.find({
+            disponibilidad: true,
+            fechaEntrada: { $lte: fechaEntradaDate }, // La habitación está disponible antes o en la fecha de entrada
+            fechaSalida: { $gte: fechaSalidaDate },   // La habitación está disponible después o en la fecha de salida
+        });
+
+        // Si no hay habitaciones disponibles
+        if (arrayHabitaciones.length === 0) {
+            return res.render('catalogo', { mensaje: 'No hay habitaciones disponibles en las fechas seleccionadas.' });
+        }
+
+        // Renderizar las habitaciones disponibles
+        res.render('catalogo', { habitaciones: arrayHabitaciones });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({
-        mensaje: "Ocurrio un error, no se encontraron las habitaciones",
-    });
+            mensaje: "Ocurrió un error, no se pudieron buscar las habitaciones.",
+        });
     }
 }
 export const obtenerHabitacion = async (req,res)=>{
