@@ -52,7 +52,7 @@ export const editarHabitacion = async (req,res)=>{
         });
     }
 }
-export const listarHabitacion = async (req,res)=>{
+export const listarHabitacion = async (req, res) => {
     try {
         // Obtener las fechas de la solicitud (GET params)
         const { fechaEntrada, fechaSalida } = req.query;
@@ -78,17 +78,19 @@ export const listarHabitacion = async (req,res)=>{
         // Buscar habitaciones disponibles entre las fechas proporcionadas
         const arrayHabitaciones = await Habitacion.find({
             disponibilidad: true,
-            fechaEntrada: { $lte: fechaEntradaDate }, // La habitación está disponible antes o en la fecha de entrada
-            fechaSalida: { $gte: fechaSalidaDate },   // La habitación está disponible después o en la fecha de salida
+            $or: [
+                { fechaSalida: { $lt: fechaEntradaDate } }, // Habitaciones que ya se han salido
+                { fechaEntrada: { $gt: fechaSalidaDate } }  // Habitaciones que todavía no han entrado
+            ]
         });
 
         // Si no hay habitaciones disponibles
         if (arrayHabitaciones.length === 0) {
-            return res.render('catalogo', { mensaje: 'No hay habitaciones disponibles en las fechas seleccionadas.' });
+            return res.status(404).json({ mensaje: 'No hay habitaciones disponibles en las fechas seleccionadas.' });
         }
 
-        // Renderizar las habitaciones disponibles
-        res.render('catalogo', { habitaciones: arrayHabitaciones });
+        // Devuelve las habitaciones disponibles
+        res.status(200).json({ habitaciones: arrayHabitaciones });
 
     } catch (error) {
         console.error(error);
@@ -96,7 +98,7 @@ export const listarHabitacion = async (req,res)=>{
             mensaje: "Ocurrió un error, no se pudieron buscar las habitaciones.",
         });
     }
-}
+};
 export const obtenerHabitacion = async (req,res)=>{
     try {
         console.log(req.params.id)
