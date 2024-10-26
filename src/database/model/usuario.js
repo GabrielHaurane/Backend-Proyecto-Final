@@ -15,6 +15,11 @@ const usuarioSchema = new Schema({
         );
       },
     },
+    rol:{
+      type:String,
+      enum:["admin","usuario"],
+      default:"usuario"
+    }
   },
   password: {
     type: String,
