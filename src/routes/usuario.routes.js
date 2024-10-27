@@ -17,13 +17,13 @@ const usuarioRouter = Router();
 usuarioRouter
   .route("/usuarios")
   .post([validacionUsuario], crearUsuario)
-  .get([verificarJWT,verificarAdmin], listarUsuarios);
+  .get([verificarJWT], listarUsuarios);
 
 usuarioRouter
   .route("/usuarios/:id")
-  .get([verificarJWT, verificarAdmin], obtenerUsuario)
+  .get([verificarJWT], obtenerUsuario)
   .delete([verificarJWT, verificarAdmin], borrarUsuario)
-  .put([verificarJWT,validacionUsuario, verificarAdmin], editarUsuario);
+  .put([verificarJWT], editarUsuario);
 
 usuarioRouter.route("/usuarios/login").post([validacionLogin], login);
 

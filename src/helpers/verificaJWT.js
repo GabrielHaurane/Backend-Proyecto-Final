@@ -8,11 +8,6 @@ const verificarJWT = (req, res, next) => {
       });
     }
     const payload = jwt.verify(token, process.env.SECRET_JWT);
-    // req.user ={
-    //     uid: payload.uid,
-    //     email: payload.email,
-    //     rol: payload.rol,
-    // }
     req.user = payload;
     next();
   } catch (error) {

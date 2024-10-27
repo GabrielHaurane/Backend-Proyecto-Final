@@ -73,10 +73,18 @@ export const editarUsuario = async (req, res) => {
         mensaje: "Ocurrio un error al intentar editar el usuario",
       });
     }
-    await Usuario.findByIdAndUpdate(req.params.id, req.body);
-    res.status(200).json({
-      mensaje: "El usuario fue editado correctamente",
-    });
+    const {rol} = req.body;
+    if (rol) {
+      
+      await Usuario.findByIdAndUpdate(req.params.id,{rol}, {new: true});
+      res.status(200).json({
+        mensaje: "El rol del usuario fue cambiado correctamente",
+      });
+    }else{
+      res.status(400).json({
+        mensaje: "Debes asignar un nuevo rol al usuario"
+      })
+    }
   } catch (error) {
     res.status(500).json({
       mensaje: "Ocurrio un error al intentar editar el usuario",
