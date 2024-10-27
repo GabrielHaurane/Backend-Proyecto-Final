@@ -15,11 +15,6 @@ const usuarioSchema = new Schema({
         );
       },
     },
-    rol:{
-      type:String,
-      enum:["admin","usuario"],
-      default:"usuario"
-    }
   },
   password: {
     type: String,
@@ -33,7 +28,12 @@ const usuarioSchema = new Schema({
       );
     },
   },
+  rol: {
+    type: String,
+    enum: ["admin", "usuario"],
+    default: "usuario",
+  },
 });
 
-const Usuario = mongoose.model('Usuario', usuarioSchema);
+const Usuario = mongoose.model("Usuario", usuarioSchema);
 export default Usuario;
