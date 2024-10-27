@@ -12,4 +12,4 @@ const generarJWT = async (uid, email, rol) => {
         throw new Error('no se pudo generar el token')
     }
 }
-export default generarJWT
+export default generarJWT;
