@@ -11,18 +11,19 @@ import {
 import validacionUsuario from "../helpers/validacionUsuario.js";
 import validacionLogin from "../helpers/validacionLogin.js";
 import verificarJWT from "../helpers/verificaJWT.js";
+import verificarAdmin from "../helpers/verificarAdmin.js";
 
 const usuarioRouter = Router();
 usuarioRouter
   .route("/usuarios")
   .post([validacionUsuario], crearUsuario)
-  .get([verificarJWT], listarUsuarios);
+  .get([verificarJWT,verificarAdmin], listarUsuarios);
 
 usuarioRouter
   .route("/usuarios/:id")
-  .get([verificarJWT], obtenerUsuario)
-  .delete([verificarJWT], borrarUsuario)
-  .put([verificarJWT], [validacionUsuario], editarUsuario);
+  .get([verificarJWT, verificarAdmin], obtenerUsuario)
+  .delete([verificarJWT, verificarAdmin], borrarUsuario)
+  .put([verificarJWT,validacionUsuario, verificarAdmin], editarUsuario);
 
 usuarioRouter.route("/usuarios/login").post([validacionLogin], login);
 
