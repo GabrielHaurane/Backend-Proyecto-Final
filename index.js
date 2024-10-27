@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url'
 import './src/database/databaseConnection.js'
 import habitacionRouter from './src/routes/habitacion.routes.js'
 import usuarioRouter from './src/routes/usuario.routes.js'
- 
 
 const app = express();
 
@@ -25,4 +24,3 @@ app.use(express.static(path.join(__dirname,'/public')))
 
  app.use('/api',habitacionRouter)
  app.use('/api',usuarioRouter)
-
