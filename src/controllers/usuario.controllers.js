@@ -144,7 +144,7 @@ export const registrarUsuario = async (req, res) => {
     const usuarioNuevo = new Usuario({
       ...req.body,
       password: hashearPassword,
-      rol:rol || 'usuario',
+      rol,
     });
     await usuarioNuevo.save();
     res.status(200).json({
