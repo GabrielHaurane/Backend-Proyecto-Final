@@ -8,6 +8,6 @@ import {
 import verificarJWT from "../helpers/verificaJWT.js";
 
 const reservaRouter = Router();
-reservaRouter.route("/reserva").get([verificarJWT],listarReservas).post([verificarJWT],crearReserva);
-reservaRouter.route("/reserva/:id").get([verificarJWT],obtenerReserva).delete([verificarJWT],borrarReserva);
+reservaRouter.route("/reserva").get([],listarReservas).post([],crearReserva);
+reservaRouter.route("/reserva/:id").get([],obtenerReserva).delete([],borrarReserva);
 export default reservaRouter;
