@@ -129,3 +129,15 @@ export const listarHabitacionesAdmin = async (req,res) =>{
         })
     }
 }
+
+export const listarHabitacionesDisponibles = async (req, res)=>{
+    try {
+        const habitacionesDisponibles = await  Habitacion.find({ disponibilidad: true })
+      res.status(200).json(habitacionesDisponibles)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            mensaje: "Ocurrio un error, no se pudo obtener la lista de habitaciones disponibles"
+        })
+    }
+}
