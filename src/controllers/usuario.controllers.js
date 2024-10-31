@@ -73,17 +73,16 @@ export const editarUsuario = async (req, res) => {
         mensaje: "Ocurrio un error al intentar editar el usuario",
       });
     }
-    const {rol} = req.body;
+    const { rol } = req.body;
     if (rol) {
-      
-      await Usuario.findByIdAndUpdate(req.params.id,{rol}, {new: true});
+      await Usuario.findByIdAndUpdate(req.params.id, { rol }, { new: true });
       res.status(200).json({
         mensaje: "El rol del usuario fue cambiado correctamente",
       });
-    }else{
+    } else {
       res.status(400).json({
-        mensaje: "Debes asignar un nuevo rol al usuario"
-      })
+        mensaje: "Debes asignar un nuevo rol al usuario",
+      });
     }
   } catch (error) {
     res.status(500).json({
@@ -96,7 +95,7 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const usuarioExistente = await Usuario.findOne({ email });
-    console.log(usuarioExistente)
+    console.log(usuarioExistente);
     if (!usuarioExistente) {
       return res.status(404).json({
         mensaje: "Email o contraseña incorrectos",
@@ -111,7 +110,7 @@ export const login = async (req, res) => {
         mensaje: "Email o contraseña incorrectos",
       });
     }
-    const token =  generarJwt(usuarioExistente._id, email, usuarioExistente.rol);
+    const token = generarJwt(usuarioExistente._id, email, usuarioExistente.rol);
     res.status(200).json({
       mensaje: "Email y contraseña correctos",
       Bienvenido: usuarioExistente.email,
@@ -156,3 +155,5 @@ export const registrarUsuario = async (req, res) => {
     });
   }
 };
+
+
