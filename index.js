@@ -7,6 +7,7 @@ import './src/database/databaseConnection.js'
 import habitacionRouter from './src/routes/habitacion.routes.js'
 import usuarioRouter from './src/routes/usuario.routes.js'
 import reservaRouter from './src/routes/reserva.routes.js'
+import  crearAdmin  from './src/database/model/usuarioAdmin/crear.admin.js'
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.set('port', process.env.PORT || 4000)
 app.listen(app.get('port'), ()=>{
     console.info('Estoy escuchando el puerto '+app.get('port') )
 });
+crearAdmin()
 
 app.use(cors())
 app.use(morgan('dev'))
