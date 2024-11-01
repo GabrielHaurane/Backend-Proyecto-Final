@@ -2,6 +2,27 @@ import Reserva from '../database/model/reserva.js'
 import Usuario from '../database/model/usuario.js';
 import Habitacion from '../database/model/habitacion.js';
 import { parseISO } from 'date-fns';
+
+// Controlador para listar reservas solo del usuario logueado
+export const listarReservasPorUsuario = async (req, res) => {
+  const { email } = req.query;
+  try {
+    // Verificar si se proporcionó un email
+    if (!email) {
+      return res.status(400).json({ mensaje: "El email es requerido" });
+    }
+    // Buscar reservas que coincidan con el email
+    const reservas = await Reserva.find({ usuarioEmail: email });
+    res.status(200).json(reservas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      mensaje: "Ocurrió un error, no se pudo listar las reservas",
+    });
+  }
+};
+
+
 export const listarReservas = async (req, res) => {
     try {
       const reservas = await Reserva.find();
