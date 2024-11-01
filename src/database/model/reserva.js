@@ -1,14 +1,14 @@
 import mongoose, {Schema} from "mongoose";
 
 const reservadaSchema = new Schema({
-    habitacionId: {
-        type: Schema.Types.ObjectId,
-        ref: 'habitacion',
+    usuarioEmail: {
+        type: String,
+        trim: true,
         required: true
     },
-    usuarioId: {
+    habitacionID: {
         type: Schema.Types.ObjectId,
-        ref: 'Usuario',
+        ref: 'habitacion',
         required: true
     },
     fechaEntrada:{
