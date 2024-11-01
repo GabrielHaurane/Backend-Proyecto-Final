@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 
-const generarJWT = async (uid, email) => {
+const generarJWT =  (uid, email, rol) => {
     try {
-        const payload = {uid, email}
-        const token = await jwt.sign(payload, process.env.SECRET_JWT, {
+        const payload = {uid, email, rol}
+        const token =  jwt.sign(payload, process.env.SECRET_JWT, {
             expiresIn: "1h"
         })
         return token
@@ -12,4 +12,4 @@ const generarJWT = async (uid, email) => {
         throw new Error('no se pudo generar el token')
     }
 }
-export default generarJWT
+export default generarJWT;

@@ -11,6 +11,7 @@ import {
 import validacionUsuario from "../helpers/validacionUsuario.js";
 import validacionLogin from "../helpers/validacionLogin.js";
 import verificarJWT from "../helpers/verificaJWT.js";
+import verificarAdmin from "../helpers/verificarAdmin.js";
 
 const usuarioRouter = Router();
 usuarioRouter
@@ -21,8 +22,8 @@ usuarioRouter
 usuarioRouter
   .route("/usuarios/:id")
   .get([verificarJWT], obtenerUsuario)
-  .delete([verificarJWT], borrarUsuario)
-  .put([verificarJWT], [validacionUsuario], editarUsuario);
+  .delete([verificarJWT, verificarAdmin], borrarUsuario)
+  .put([verificarJWT], editarUsuario);
 
 usuarioRouter.route("/usuarios/login").post([validacionLogin], login);
 
