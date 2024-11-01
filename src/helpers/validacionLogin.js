@@ -1,6 +1,7 @@
 import { check } from "express-validator";
 import resultadoValidacion from "./resultadoValidacion.js";
-const validacionUsuario = [
+
+const validacionLogin = [
   check("email")
     .notEmpty()
     .withMessage("El email es un dato obligatorio")
@@ -20,14 +21,14 @@ const validacionUsuario = [
       min: 8,
       max: 100,
     })
-    .withMessage("La contraseña es inválida")
+    .withMessage("La contraseña es incorrecta")
     .matches(
       /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,100}$/
     )
     .withMessage(
-      "La contraseña debe contener entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanúmerico"
+      "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico."
     ),
   (req, res, next) => resultadoValidacion(req, res, next),
 ];
 
-export default validacionUsuario;
+export default validacionLogin;
