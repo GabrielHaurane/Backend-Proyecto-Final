@@ -27,6 +27,6 @@ usuarioRouter
 
 usuarioRouter.route("/usuarios/login").post([validacionLogin], login);
 
-usuarioRouter.route("/usuarios/registro").post(registrarUsuario);
+usuarioRouter.route("/usuarios/registro").post([validacionUsuario],registrarUsuario);
 
 export default usuarioRouter;
