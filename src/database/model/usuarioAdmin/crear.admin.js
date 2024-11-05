@@ -2,10 +2,9 @@ import Usuario from "../usuario.js";
 import bcrypt from "bcrypt";
 
  const crearAdmin = async () => {
-  const URLPassword = import.meta.env.PASSWORD
   try {
     const emailAdmin = "hotel@code.com";
-    const passwordAdmin = URLPassword;
+    const passwordAdmin = import.meta.env.PASSWORD;
     const adminExistente = await Usuario.findOne({ email: emailAdmin });
     if (adminExistente) {
       console.log("El administrador ya existe");
